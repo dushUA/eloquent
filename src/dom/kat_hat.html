@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        #cat{
+            position: absolute;
+            top:200px;
+            left: 500px;
+        }
+        #hat{
+            position: absolute;
+            top:200px;
+            left: 1000px;
+        }
+    </style>
+</head>
+<body>
+    <img src="../../img/about.png" id="hat">
+    <img src="../../img/about.png" id="cat">
+    <script>
+        var cat = document.getElementById('cat');
+        var hat = document.getElementById('hat');
+        var angle = 0, lastTime = null;
+        function animate(time) {
+            if (lastTime != null)
+                angle += (time - lastTime) * 0.0015;
+            lastTime = time;
+            var x =(Math.sin(angle) * 100+200);
+            var y = (Math.cos(angle) * 100+500);
+            cat.style.top = x + "px";
+            cat.style.left =  y + "px";
+
+            hat.style.top = (Math.sin(angle)*100+x)+'px';
+            hat.style.left = (Math.cos(angle)*100+y)+'px';
+            requestAnimationFrame(animate);
+        }
+        requestAnimationFrame(animate);
+    </script>
+</body>
+</html>

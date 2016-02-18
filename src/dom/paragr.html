@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <p>Один</p>
+    <p>Два</p>
+    <p>Три</p>
+    <script>
+        var paragraphs = document.body.getElementsByTagName("p");
+        document.body.insertBefore(paragraphs[2], paragraphs[0]);
+    </script>
+
+
+    <p>Это <img src="img/cat.png" alt="Кошка"> в
+        <img src="img/hat.png" alt="сапожках">.</p>
+    <p><button onclick="replaceImages()">Заменить</button></p>
+    <script>
+        function replaceImages() {
+            var images = document.body.getElementsByTagName("img");
+            for (var i = images.length - 1; i >= 0; i--) {
+                var image = images[i];
+                if (image.alt) {
+                    var text = document.createTextNode(image.alt);
+                    image.parentNode.replaceChild(text, image);
+                }
+            }
+        }
+    </script>
+
+
+    <blockquote id="quote">
+        Никакая книга не может быть закончена. Во время работы над ней мы узнаём достаточно для того, чтобы найти её незрелой сразу же после того, как мы отвлеклись от неё.
+    </blockquote>
+    <script>
+        function elt(type) {
+            var node = document.createElement(type);
+            for (var i = 1; i < arguments.length; i++) {
+                var child = arguments[i];
+                if (typeof child == "string")
+                    child = document.createTextNode(child);
+                node.appendChild(child);
+            } return node;
+        } document.getElementById("quote").appendChild(
+                elt("footer", "—", elt("strong", "Карл Поппер"),
+                        ", предисловие ко второму изданию ",
+                        elt("em", "Открытое общество и его враги "), ", 1950"));
+    </script>
+
+    <p>Люблю грозу в начале
+        <span>мая</span></p>
+    <p>Когда весенний первый гром</p>
+    <p>Как бы <span>резвяся
+<span>и играя</span></span></p>
+    <p>Грохочет в небе голубом.</p>
+    <script>
+        function count(selector) {
+            return document.querySelectorAll(selector).length;
+        }
+        console.log(count("p")); // Все элементы <p>
+        // → 4
+        console.log(count(".animal")); // Класс animal
+        // → 2
+        console.log(count("p .animal")); // Класс animal внутри <p>
+        // → 2
+        console.log(count("p > .animal")); // Прямой потомок <p>
+        // → 1
+    </script>
+
+    <p style="text-align: center">
+        <img id="pic" src="../../img/about.png" style="position: relative">
+    </p>
+    <script>
+        var cat = document.getElementById('pic');
+        var angle = 0, lastTime = null;
+        function animate(time) {
+            if (lastTime != null)
+                angle += (time - lastTime) * 0.001;
+            lastTime = time;
+            cat.style.top = (Math.sin(angle) * 20) + "px";
+            cat.style.left = (Math.cos(angle) * 200) + "px";
+            requestAnimationFrame(animate);
+        }
+        requestAnimationFrame(animate);
+    </script>
+</body>
+</html>
