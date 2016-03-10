@@ -5,13 +5,77 @@
     <title></title>
 </head>
 <body>
-    <button>Нажми	меня	нежно.</button>
-    <p>А	здесь	нет	обработчиков.</p>
+    <!--<button>Нажми	меня	нежно.</button>-->
+    <!--<p>А	здесь	нет	обработчиков.</p>-->
+    <!--<script>-->
+        <!--var	button	=	document.querySelector("button");-->
+        <!--button.addEventListener("click",	function()	{-->
+            <!--console.log("Кнопка	нажата.");-->
+        <!--});-->
+    <!--</script>-->
+    <!--<p>Параграф	с	<button>кнопкой	</button>.</p>-->
+    <!--<script>-->
+        <!--var	para	=	document.querySelector("p");-->
+        <!--var	button	=	document.querySelector("button");-->
+        <!--para.addEventListener("mousedown",	function()	{-->
+            <!--console.log("Обработчик	параграфа.");-->
+        <!--});-->
+        <!--button.addEventListener("mousedown",	function(event)	{-->
+            <!--console.log("Обработчик	кнопки.");-->
+            <!--if	(event.which	==	3)-->
+                <!--event.stopPropagation();-->
+        <!--});-->
+    <!--</script>-->
+    <!--<p>Переведите	фокус	на	страницу	и	печатайте.</p>-->
+    <!--<script>-->
+        <!--addEventListener("keypress",	function(event)	{-->
+            <!--console.log(String.fromCharCode(event.charCode));-->
+        <!--});-->
+    <!--</script>-->
+    <!--<style>-->
+        <!--body	{-->
+            <!--height:	200px;-->
+            <!--background:	beige;-->
+        <!--}-->
+        <!--.dot	{-->
+            <!--height:	8px;	width:	8px;-->
+            <!--border-radius:	4px;	/*	скруглённые	углы	*/-->
+            <!--background:	blue;-->
+            <!--position:	absolute;-->
+        <!--}-->
+    <!--</style>-->
+    <!--<script>-->
+        <!--addEventListener("click",	function(event)	{-->
+            <!--var	dot	=	document.createElement("div");-->
+            <!--dot.className	=	"dot";-->
+            <!--dot.style.left	=	(event.pageX	-	4)	+	"px";-->
+            <!--dot.style.top	=	(event.pageY	-	4)	+	"px";-->
+            <!--document.body.appendChild(dot);-->
+        <!--});-->
+    <!--</script>-->
+    <p>Переместите	мышь	для	увеличения	ширины:</p>
+    <div	style="background:	orange;	width:	60px;	height:	20px">
+    </div>
     <script>
-        var	button	=	document.querySelector("button");
-        button.addEventListener("click",	function()	{
-            console.log("Кнопка	нажата.");
+        var	lastX;	//	Последняя	позиция	мыши
+        var	rect	=	document.querySelector("div");
+        rect.addEventListener("mousedown",	function(event)	{
+            if	(event.which	==	1)	{
+                lastX	=	event.pageX;
+                addEventListener("mousemove",	moved);
+                event.preventDefault();	//	Запретим	выделение
+            }
         });
+        function	moved(event)	{
+            if	(event.which	!=	1)	{
+                removeEventListener("mousemove",	moved);
+            }	else	{
+                var	dist	=	event.pageX	-	lastX;
+                var	newWidth	=	Math.max(10,	rect.offsetWidth	+	dist);
+                rect.style.width	=	newWidth	+	"px";
+                lastX	=	event.pageX;
+            }
+        }
     </script>
 </body>
 </html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <style>
+        .trail	{
+            position:	absolute;
+            height:	6px;	width:	6px;
+            border-radius:	3px;
+            background:	teal;
+        }
+        body	{
+            height:	300px;
+        }
+    </style>
+    <script>
+        var body = document.body;
+        body.addEventListener('mousemove', function(event){
+            var x = event.clientX;
+            var y = event.clientY;
+            if (x % 3 == 0 && y % 3  == 0){
+                var trail = document.createElement("div");
+                trail.className = "trail";
+                var color = '#'+(Math.random()*0xFFFFFF<<0).toString(16);
+                trail.style = "left: " + x +"px; top: " + y+"px; background-color: "+color;
+                console.log('x = '+ x +'; y = '+ y);
+                body.appendChild(trail);
+            }
+        })
+    </script>
+</body>
+</html>
